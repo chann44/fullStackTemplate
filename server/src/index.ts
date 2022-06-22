@@ -1,14 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import server from "./server";
 
-const createUser = async (name: string) => {
-  const newUSer = await prisma.user.create({
-    data: {
-      name: name,
-    },
-  });
+const port = 5000;
 
-  console.log(newUSer);
-};
-
-createUser("vikash");
+server.listen(port, () => {
+  console.log("server started on port ", port);
+});
