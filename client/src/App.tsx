@@ -18,7 +18,6 @@ import Register from "./Register";
 import { useCookies } from "react-cookie";
 export default function App() {
   // const [token, setToken] = React.useState<any>('')
-  const { token, setToken } = React.useContext(AppContext);
 
   return (
     <>
