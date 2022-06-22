@@ -6,6 +6,7 @@ import React, {
   useContext,
   useState,
 } from "react";
+import Cookies from "js-cookie";
 
 interface APP {
   token: undefined | string;
@@ -23,6 +24,11 @@ interface APPPROV {
 
 export const AppProvider: FC<APPPROV> = ({ children }) => {
   const [token, setToken] = useState<undefined | string>(undefined);
+  // const { setToken, token } = React.useContext(AppContext);
+  React.useEffect(() => {
+    setToken(Cookies.get("jwt_token"));
+    console.log(token);
+  }, []);
 
   return (
     <AppContext.Provider value={{ token, setToken }}>
