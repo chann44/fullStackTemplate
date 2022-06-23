@@ -2,23 +2,14 @@ import * as React from "react";
 import {
   Routes,
   Route,
-  Link,
-  useNavigate,
-  useLocation,
-  Navigate,
-  Outlet,
 } from "react-router-dom";
 
 import RequireAuth from "./Auth";
-import Cookies from "js-cookie";
-import { AppContext, AppProvider } from "./context";
+import { AppProvider } from "./context";
 import Todos from "./Todos";
 import Login from "./login";
 import Register from "./Register";
-import { useCookies } from "react-cookie";
 export default function App() {
-  // const [token, setToken] = React.useState<any>('')
-
   return (
     <>
       <AppProvider>

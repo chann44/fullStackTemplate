@@ -2,19 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router";
 import Cookies from "js-cookie";
-import { AppContext } from "./context";
+import { useAppContext } from "./context";
 
 const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { token } = useContext(AppContext);
+  const { tok } = useAppContext()
 
   useEffect(() => {
-    if (token) {
+    if (tok) {
       navigate("/");
     }
-  }, [token]);
+  }, [tok]);
 
   return (
     <>
@@ -26,12 +26,12 @@ const Login = () => {
             username: name,
             password: password,
           });
-          const token = res.data.data.jwt_token;
-          console.log(token);
-          if (token) {
-            Cookies.set("jwt_token", token);
+          const restoken = res.data.data.jwt_token;
+          console.log(restoken);
+          if (restoken) {
+            Cookies.set("jwt_token", restoken);
             console.log("hit the homepage ");
-            navigate("/");
+            window.location.replace('http://localhost:3000')
           }
         }}
       >

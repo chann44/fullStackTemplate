@@ -1,37 +1,19 @@
-import React, {
-  createContext,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
-import Cookies from "js-cookie";
+import { createContext, useContext, useEffect } from "react";
+import Cookies from "js-cookie"
 
-interface APP {
-  token: undefined | string;
-  setToken: Dispatch<SetStateAction<undefined | string>>;
+let intial_value: any = {};
+
+export const AppContext = createContext(intial_value);
+
+export function useAppContext() {
+  return useContext(AppContext);
 }
 
-export const AppContext = createContext<APP>({
-  token: undefined,
-  setToken: () => {},
-});
-
-interface APPPROV {
-  children: React.ReactNode;
-}
-
-export const AppProvider: FC<APPPROV> = ({ children }) => {
-  const [token, setToken] = useState<undefined | string>(undefined);
-  // const { setToken, token } = React.useContext(AppContext);
-  React.useEffect(() => {
-    setToken(Cookies.get("jwt_token"));
-    console.log(token);
-  }, []);
+export const AppProvider = ({ children }: any) => {
+  const tok = Cookies.get("jwt_token");
 
   return (
-    <AppContext.Provider value={{ token, setToken }}>
+    <AppContext.Provider value={{ tok }}>
       {children}
     </AppContext.Provider>
   );

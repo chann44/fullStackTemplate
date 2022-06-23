@@ -1,19 +1,17 @@
-import { useLocation, Navigate, useNavigate } from "react-router";
-import React, { useContext, useEffect, useState } from "react";
-import { AppContext } from "./context";
-import Cookies from "js-cookie";
-import Login from "./login";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import { useAppContext } from "./context";
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  const { token } = useContext(AppContext);
+  const { tok } = useAppContext()
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    console.log(token);
-    if (!token) {
+  useEffect(() => {
+    console.log(tok);
+    if (!tok) {
       navigate("/login");
     }
-  }, [token]);
+  }, [tok]);
 
   return children;
 }
