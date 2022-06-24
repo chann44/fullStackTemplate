@@ -7,7 +7,12 @@ const todoRouter = Router();
 
 todoRouter.get("/", authenticateJWT, async (req: Request, res: Response) => {
   console.log(req);
-  const getallTodos = await prisma.todo.findMany();
+  const user = req.body.user;
+  const getallTodos = await prisma.todo.findMany({
+    where: {
+      id: user.id,
+    },
+  });
   console.log(getallTodos);
   res.send({
     todos: getallTodos,
@@ -16,6 +21,7 @@ todoRouter.get("/", authenticateJWT, async (req: Request, res: Response) => {
 
 todoRouter.post("/", authenticateJWT, async (req: Request, res: Response) => {
   const user = req.body.user;
+  console.log(user);
   const addTodo = await prisma.todo.create({
     data: {
       authorId: user.id,
